@@ -25,3 +25,12 @@ Le **frontend omni365-showcase** servira de **couche de présentation** pour met
 #### Exigences techniques
 
 - **Outils** : Angular + n’importe quelle bibliothèque de composants UI.
+
+---
+#### Inspiration:
+- [Microsoft365](https://www.microsoft.com/en-us/microsoft-365/microsoft-365-enterprise)
+- [Google Workspace](https://workspace.google.com)
+- [Nextcloud](https://nextcloud.com)
+
+
+
