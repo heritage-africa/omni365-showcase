@@ -1,0 +1,190 @@
+/* header.component.css */
+
+/* Animations personnalisées pour le header */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse-gentle {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* Header avec effet glassmorphism */
+header {
+    animation: slideDown 0.6s ease-out;
+}
+
+/* Logo animations */
+.logo-container:hover .logo-icon {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.logo-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navigation links avec effet de ligne */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+/* Dropdown menu animations */
+.dropdown-menu {
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-menu.show {
+    transform: translateY(0) scale(1);
+}
+
+/* Mobile menu animations */
+.mobile-menu {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.open {
+    animation: slideDown 0.3s ease-out;
+}
+
+.mobile-menu.close {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 500px;
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+    }
+}
+
+/* CTA Button avec effet brillant */
+.cta-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-100%) rotate(45deg);
+    transition: transform 0.6s;
+}
+
+.cta-button:hover::before {
+    transform: translateX(100%) rotate(45deg);
+}
+
+/* Badge de statut pulsant */
+.status-badge {
+    animation: pulse-gentle 2s infinite;
+}
+
+/* Scrollbar personnalisée pour le dropdown */
+.dropdown-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dropdown-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.5);
+    border-radius: 2px;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .mobile-menu-item {
+        animation: fadeIn 0.3s ease-out;
+        animation-fill-mode: both;
+    }
+
+    .mobile-menu-item:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .mobile-menu-item:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .mobile-menu-item:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .mobile-menu-item:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .mobile-menu-item:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+    .glass-effect {
+        background: rgba(17, 24, 39, 0.8);
+        backdrop-filter: blur(16px);
+    }
+}

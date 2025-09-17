@@ -1,0 +1,260 @@
+<!-- pricing-page.component.html -->
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+
+    <!-- Header Section -->
+    <section class="relative py-20 lg:py-32 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl animate-float"></div>
+            <div
+                class="absolute bottom-20 right-20 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl animate-float-delayed">
+            </div>
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-200/20 rounded-full blur-3xl animate-pulse-gentle">
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-4xl mx-auto text-center">
+
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm text-blue-600 px-4 py-2 rounded-full border border-blue-200 mb-6 animate-fade-in">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="font-semibold">Tarifs transparents</span>
+                </div>
+
+                <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 animate-slide-up">
+                    Choisissez le plan qui vous
+                    <span
+                        class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 bg-clip-text text-transparent">
+                        correspond
+                    </span>
+                </h1>
+
+                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-slide-up-delayed">
+                    Des solutions flexibles pour toutes les tailles d'entreprise.
+                    Commencez gratuitement et évoluez selon vos besoins.
+                </p>
+
+                <!-- Billing Toggle -->
+                <div class="flex items-center justify-center space-x-4 mb-12 animate-slide-up-more-delayed">
+                    <span class="text-gray-600 font-medium" [class.text-gray-900]="!isYearly">Mensuel</span>
+
+                    <button title="Toggle Billing" (click)="toggleBilling()"
+                        class="relative w-16 h-8 bg-gray-200 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        [class.bg-blue-600]="isYearly">
+                        <div class="absolute top-0.5 left-0.5 w-7 h-7 bg-white rounded-full shadow transform transition-transform duration-300"
+                            [class.translate-x-8]="isYearly"></div>
+                    </button>
+
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-600 font-medium" [class.text-gray-900]="isYearly">Annuel</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">
+                            -25%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="py-16 relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 max-w-7xl mx-auto">
+
+                <div *ngFor="let plan of plans; let i = index" class="relative pricing-card"
+                    [class.popular-plan]="plan.popular" [style.animation-delay]="(i * 100) + 'ms'">
+
+                    <!-- Popular Badge -->
+                    <div *ngIf="plan.popular" class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                        <div
+                            class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                            {{ plan.highlight }}
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <div class="relative bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 p-8 h-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                        [class.ring-2]="plan.popular" [class.ring-purple-500]="plan.popular"
+                        [class.scale-105]="plan.popular && selectedPlan === null">
+
+                        <!-- Plan Header -->
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
+                                [class]="getColorClasses(plan.color).accent">
+                                <svg class="w-8 h-8" [class]="getColorClasses(plan.color).text" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <!-- Rocket icon for Starter -->
+                                    <path *ngIf="plan.icon === 'rocket'" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    <!-- Trending up icon for Business -->
+                                    <path *ngIf="plan.icon === 'trending-up'" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    <!-- Shield check icon for Enterprise -->
+                                    <path *ngIf="plan.icon === 'shield-check'" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                            <p class="text-gray-600 mb-6">{{ plan.description }}</p>
+                        </div>
+
+                        <!-- Pricing -->
+                        <div class="text-center mb-8">
+                            <div *ngIf="!plan.enterprise" class="mb-2">
+                                <span *ngIf="getOriginalPrice(plan)" class="text-lg text-gray-400 line-through mr-2">
+                                    {{ getOriginalPrice(plan) }}€
+                                </span>
+                                <span class="text-5xl font-bold text-gray-900">
+                                    {{ getPlanPrice(plan) }}€
+                                </span>
+                                <span class="text-gray-600 ml-1">
+                                    /{{ isYearly ? 'an' : 'mois' }}
+                                </span>
+                            </div>
+
+                            <div *ngIf="plan.enterprise" class="mb-2">
+                                <span class="text-3xl font-bold text-gray-900">Sur mesure</span>
+                            </div>
+
+                            <div *ngIf="calculateSavings(plan) > 0" class="text-green-600 font-semibold text-sm">
+                                Économisez {{ calculateSavings(plan) }}%
+                            </div>
+
+                            <div *ngIf="!plan.enterprise" class="text-sm text-gray-500 mt-2">
+                                <!-- {{ isYearly ? 'Soit ' + Math.round(getPlanPrice(plan)/12) + '€/mois' : 'Facturation
+                                mensuelle' }} -->
+                            </div>
+                        </div>
+
+                        <!-- Features -->
+                        <div class="mb-8">
+                            <h4 class="font-semibold text-gray-900 mb-4">Inclus dans ce plan :</h4>
+                            <ul class="space-y-3">
+                                <li *ngFor="let feature of plan.features" class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
+                                        [class]="getColorClasses(plan.color).accent">
+                                        <svg class="w-3 h-3" [class]="getColorClasses(plan.color).text" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-gray-700">{{ feature }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-2 gap-4 mb-8 p-4 rounded-lg"
+                            [class]="getColorClasses(plan.color).accent">
+                            <div class="text-center">
+                                <div class="text-sm text-gray-600">Utilisateurs</div>
+                                <div class="font-semibold" [class]="getColorClasses(plan.color).text">
+                                    {{ plan.maxUsers }}
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-sm text-gray-600">Stockage</div>
+                                <div class="font-semibold" [class]="getColorClasses(plan.color).text">
+                                    {{ plan.storage }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="mt-auto">
+                            <button *ngIf="!plan.enterprise" (click)="startTrial(plan)"
+                                class="w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                                [class]="plan.popular ? 
+                        'bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg' :
+                        'bg-gray-100 hover:bg-gray-200 text-gray-900 border-2 border-gray-200 hover:border-gray-300'">
+                                {{ plan.cta }}
+                            </button>
+
+                            <button *ngIf="plan.enterprise" (click)="contactSales()"
+                                class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                                {{ plan.cta }}
+                            </button>
+
+                            <div class="text-center mt-3">
+                                <span class="text-sm text-gray-500">
+                                    {{ plan.enterprise ? 'Devis personnalisé' : '14 jours d\'essai gratuit' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison Table -->
+    <section class="py-16 bg-white/50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                        Comparaison détaillée
+                    </h2>
+                    <p class="text-xl text-gray-600">
+                        Découvrez toutes les fonctionnalités incluses dans chaque plan
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                    <!-- Table Header -->
+                    <div class="bg-gray-50 p-6">
+                        <div class="grid grid-cols-4 gap-6">
+                            <div class="font-semibold text-gray-900">Fonctionnalités</div>
+                            <div class="text-center font-semibold text-blue-600">Starter</div>
+                            <div class="text-center font-semibold text-purple-600">Business</div>
+                            <div class="text-center font-semibold text-green-600">Enterprise</div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Categories -->
+                    <div *ngFor="let category of detailedFeatures; let categoryIndex = index">
+                        <div class="bg-gray-100 px-6 py-3 border-t border-gray-200">
+                            <h3 class="font-semibold text-gray-800">{{ category.category }}</h3>
+                        </div>
+
+                        <div *ngFor="let item of category.items; let itemIndex = index" class="border-t border-gray-100"
+                            [class.bg-blue-50/30]="(categoryIndex + itemIndex) % 2 === 0">
+                            <div class="grid grid-cols-4 gap-6 p-6 items-center">
+
+                                <!-- Feature Name -->
+                                <div class="font-medium text-gray-900">
+                                    {{ item.name }}
+                                    <span *ngIf="item.tooltip" class="text-gray-400 ml-1 cursor-help"
+                                        [title]="item.tooltip">
+                                        ℹ️
+                                    </span>
+                                </div>
+
+                                <!-- Starter -->
+                                <div class="text-center">
+                                    <span *ngIf="isFeatureIncluded(item.starter)"
+                                        class="inline-flex items-center space-x-1">
+                                        <svg *ngIf="item.starter === true" class="w-5 h-5 text-green-600" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span *ngIf="item.starter !== true" class="text-blue-600 font-medium">
+                                            {{ item.starter }}
+                                        </span>
+                                    </span>
+                                    <svg *ngIf="!isFeatureIncluded(item.starter)" class="w-5 h-5 text-red-600 mx-auto"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
