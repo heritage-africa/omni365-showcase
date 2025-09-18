@@ -190,11 +190,25 @@
                                         </div>
                                     </div>
                                     <div class="flex space-x-3">
-                                        <div class="w-4 h-4 bg-green-500 rounded-full shadow-lg animate-pulse"></div>
-                                        <div class="w-4 h-4 bg-yellow-500 rounded-full shadow-lg animate-pulse"
-                                            style="animation-delay: 0.5s;"></div>
-                                        <div class="w-4 h-4 bg-red-500 rounded-full shadow-lg animate-pulse"
-                                            style="animation-delay: 1s;"></div>
+                                        <div class="relative w-4 h-4 bg-green-500 rounded-full shadow-lg animate-pulse hover:bg-opacity-50 cursor-pointer"
+                                            (mouseenter)="hovered='green'" (mouseleave)="hovered=''">
+                                            <span *ngIf="hovered === 'green'"
+                                                class="absolute inset-0 flex items-center justify-center text-white font-bold">✕</span>
+                                        </div>
+
+                                        <div class="relative w-4 h-4 bg-yellow-500 rounded-full shadow-lg animate-pulse hover:bg-opacity-50 cursor-pointer"
+                                            style="animation-delay: 0.5s;" (mouseenter)="hovered='yellow'"
+                                            (mouseleave)="hovered=''">
+                                            <span *ngIf="hovered === 'yellow'"
+                                                class="absolute inset-0 flex items-center justify-center text-white font-bold">✕</span>
+                                        </div>
+
+                                        <div class="relative w-4 h-4 bg-red-500 rounded-full shadow-lg animate-pulse hover:bg-opacity-50 cursor-pointer"
+                                            style="animation-delay: 1s;" (mouseenter)="hovered='red'"
+                                            (mouseleave)="hovered=''">
+                                            <span *ngIf="hovered === 'red'"
+                                                class="absolute inset-0 flex items-center justify-center text-white font-bold">✕</span>
+                                        </div>
                                     </div>
                                 </div>
 
