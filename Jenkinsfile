@@ -1,5 +1,8 @@
 pipeline { 
     agent any
+    environment{
+        OPENSHIFT_PROJECT = 'omni365'
+    }
     stages {
         stage('Install dependencies') {
             steps {
@@ -14,11 +17,11 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        stage('Test') {
+        stage('Deploy to openshift') {
             steps {
-                echo "Execution des tests"
-                // sh 'ng test --watch=false --browsers=ChromeHeadless'
-            
+                sh 'oc project $OPENSHIFT_PROJECT'
+                sh 'oc delete all -l app=omniApp'
+                sh 'oc new-app openshift/nodejs:18-ubi9~https://github.com/Bameth/omni365-showcase.git --name=omniApp'
             }
         }
     }
