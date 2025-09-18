@@ -16,7 +16,8 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Execution des tests"
-                sh 'ng test'
+                sh 'npm test -- --watch=false --browsers=ChromeHeadless'
+            
             }
         }
     }
