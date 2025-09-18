@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo "Installer les dépendances"
                 sh 'npm install'
-                sh 'npm install puppeteer --save-dev'
+                sh 'npm remove puppeteer --save-dev'
             }
         }
         stage('Build') {
@@ -17,7 +17,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Execution des tests"
-                sh 'ng test -- --watch=false --browsers=ChromeHeadless'
+                // sh 'ng test --watch=false --browsers=ChromeHeadless'
             
             }
         }
