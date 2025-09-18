@@ -1,4 +1,3 @@
-// animate.directive.ts
 import { Directive, ElementRef, Input, AfterViewInit } from '@angular/core';
 import { animate } from '@motionone/dom';
 
