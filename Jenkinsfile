@@ -17,6 +17,14 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Login to OpenShift') {
+            steps {
+                withCredentials([string(credentialsId: 'openshift_token', variable: 'TOKEN')]) {
+                sh "oc login --token=$TOKEN --server=https://api.ocp.heritage.africa:6443 "
+                }
+            }
+                    
+        }
         stage('Deploy to openshift') {
             steps {
                 sh 'oc project $OPENSHIFT_PROJECT'
